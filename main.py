@@ -22,8 +22,13 @@ while True:
         print("✔ Transaction added successfully!\n")
 
     elif option == "2":
-
-        print(transaction)
+        if len(transaction) == 0:
+            print("\nNo transactions registered yet.\n")
+        else:
+            print("\n--- Transactions List ---")
+            for t in transaction:
+                print(f"• {t['description']} | ${t['amount']:.2f} | Category: {t['category']}")
+            print("-------------------------\n")
 
     elif option == "3":
         print("This is your transaction", transaction)
