@@ -1,4 +1,10 @@
-transaction = []
+import json
+
+try:
+    with open("transaction.json", "r") as file:
+        transaction = json.load(file)
+except FileNotFoundError:
+    transaction = []
 
 while True:
     print ("1- Add transaction\n2- List transactions\n3- Funds\n4- Exit\n")
@@ -16,9 +22,13 @@ while True:
             "category": category
         }
 
-        # save the list
+        # add list in memory
         transaction.append(new_transaction)
         print("✔ Transaction added successfully!\n")
+
+        # save in file json
+        with open("transaction.json,", "w") as file:
+                json.dump(transaction, file, indent=4)
 
     elif option == "2":
         if len(transaction) == 0:
@@ -39,7 +49,6 @@ while True:
         print("-------------------\n")
 
     elif option == "4":
-        print("This is your transaction", transaction)
         break
 
     else:
