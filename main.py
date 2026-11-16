@@ -1,6 +1,5 @@
 transaction = []
 
-
 while True:
     print ("1- Add transaction\n2- List transactions\n3- Funds\n4- Exit\n")
     option = input("Choose an option: \n").strip()
@@ -31,7 +30,13 @@ while True:
             print("-------------------------\n")
 
     elif option == "3":
-        print("This is your transaction", transaction)
+        total = 0
+        for t in transaction:
+            total += t["amount"]
+
+        print("\n--- Total Funds ---")
+        print(f"Total: ${total:.2f}")
+        print("-------------------\n")
 
     elif option == "4":
         print("This is your transaction", transaction)
