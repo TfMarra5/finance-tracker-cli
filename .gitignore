@@ -9,7 +9,7 @@ venv/
 env/
 
 # Local personal data file
-transactions.json
+transaction.json
 
 # IDE / Editor folders
 .vscode/

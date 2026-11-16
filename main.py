@@ -1,4 +1,9 @@
 import json
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+
+console = Console()
 
 try:
     with open("transaction.json", "r") as file:
@@ -27,27 +32,36 @@ while True:
         print("✔ Transaction added successfully!\n")
 
         # save in file json
-        with open("transaction.json,", "w") as file:
+        with open("transaction.json", "w") as file:
                 json.dump(transaction, file, indent=4)
 
     elif option == "2":
         if len(transaction) == 0:
             print("\nNo transactions registered yet.\n")
         else:
-            print("\n--- Transactions List ---")
+
+            # Table creation
+            table = Table(title="Transaction History", show_header=True, header_style="bold magenta")
+
+            # Column def
+            table.add_column("Description", style="white")
+            table.add_column("Amount", justify="right", style="green")
+            table.add_column("Category", style="cyan")
+
+            # Row -> transaction
             for t in transaction:
-                print(f"• {t['description']} | ${t['amount']:.2f} | Category: {t['category']}")
-            print("-------------------------\n")
+                table.add_row(t["description"], f"${t['amount']:.2f}", t["category"])
+
+            # Table print
+            console.print(table)
 
     elif option == "3":
         total = 0
         for t in transaction:
             total += t["amount"]
 
-        print("\n--- Total Funds ---")
-        print(f"Total: ${total:.2f}")
-        print("-------------------\n")
-
+            console.print(Panel(f"[bold green]Total: ${total:.2f}[/bold green]", title="[bold]Funds Summary[/bold]", expand=False))
+            console.print()
     elif option == "4":
         break
 
